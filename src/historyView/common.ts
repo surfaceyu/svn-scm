@@ -94,13 +94,20 @@ export async function copyCommitToClipboard(what: string, item: ILogTreeItem) {
         await clipboard.writeText(commit[what]);
         break;
       case "msg_more":
-        let msg_template = `\nRevision: %s\nAuthor: %s\nDate: %s\nMessage:\n%s\n%s`
-        let paths = ""
+        let msg_template = `\nRevision: %s\nAuthor: %s\nDate: %s\nMessage:\n%s\n%s`;
+        let paths = "";
         commit.paths.forEach(element => {
-          paths = paths + format("%s: %s\n", element.action, element._)
+          paths = paths + format("%s: %s\n", element.action, element._);
         });
         // 输出 format
-        let s = format(msg_template, commit.revision, commit.author, dayjs(commit.date).format("YYYY年MM月DD日 HH:mm:ss"), commit.msg, paths)
+        let s = format(
+          msg_template,
+          commit.revision,
+          commit.author,
+          dayjs(commit.date).format("YYYY年MM月DD日 HH:mm:ss"),
+          commit.msg,
+          paths
+        );
         await clipboard.writeText(s);
     }
   }
